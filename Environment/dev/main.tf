@@ -3,8 +3,14 @@ module "resource_group" {
   rg     = var.rg_map
 }
 
+module "public_ip" {
+  source     = "../../Moduls/azurerm_public_ip"
+  public_ips = var.public_ip_map
+  depends_on = [module.resource_group]
+}
+
 module "storage_account" {
-  source           = "../../Moduls/azurerm_storage_account"
+  source = "../../Moduls/azurerm_storage_account"
   storage_accounts = {
     for k, v in var.storage_account_map : k => {
       name                     = "${v.name}${random_string.random1.result}"
@@ -14,7 +20,7 @@ module "storage_account" {
       account_replication_type = v.account_replication_type
     }
   }
-  depends_on       = [module.resource_group]
+  depends_on = [module.resource_group]
 }
 
 module "storage_container" {
@@ -44,10 +50,11 @@ module "nic" {
   source = "../../Moduls/azurerm_nic"
   nic = {
     for k, v in var.nic_map : k => {
-      name                = v.name
-      location            = v.location
-      resource_group_name = v.resource_group_name
-      subnet_id           = module.subnet.subnet_output[v.subnet_key].id
+      name                 = v.name
+      location             = v.location
+      resource_group_name  = v.resource_group_name
+      subnet_id            = module.subnet.subnet_output[v.subnet_key].id
+      public_ip_address_id = v.public_ip_key != null ? module.public_ip.public_ip_output[v.public_ip_key].id : null
     }
   }
 }

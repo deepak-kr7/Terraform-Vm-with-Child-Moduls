@@ -5,6 +5,14 @@ rg_map = {
   }
 }
 
+public_ip_map = {
+  pip1 = {
+    name                = "dev-vm-pip"
+    location            = "Central India"
+    resource_group_name = "dev-rg"
+  }
+}
+
 storage_account_map = {
   sa1 = {
     name                     = "devstgdeep"
@@ -53,6 +61,7 @@ nic_map = {
     location            = "Central India"
     resource_group_name = "dev-rg"
     subnet_key          = "subnet1"
+    public_ip_key       = "pip1"
   }
 }
 
@@ -97,7 +106,7 @@ vm_map = {
     nic_key             = "nic1"
     vm_size             = "Standard_D2s_v3"
     admin_username      = "adminuser"
-    admin_password      = "Password123"
+    admin_password      = "Password123!"
   }
 }
 

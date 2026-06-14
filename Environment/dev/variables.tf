@@ -5,6 +5,14 @@ variable "rg_map" {
   }))
 }
 
+variable "public_ip_map" {
+  type = map(object({
+    name                = string
+    location            = string
+    resource_group_name = string
+  }))
+}
+
 variable "storage_account_map" {
   type = map(object({
     name                     = string
@@ -18,7 +26,7 @@ variable "storage_account_map" {
 variable "storage_container_map" {
   type = map(object({
     name                  = string
-    storage_account_key   = string # Reference to storage_account_map key
+    storage_account_key   = string
     container_access_type = string
   }))
 }
@@ -46,7 +54,8 @@ variable "nic_map" {
     name                = string
     location            = string
     resource_group_name = string
-    subnet_key          = string # Using key to reference subnet
+    subnet_key          = string
+    public_ip_key       = optional(string)
   }))
 }
 
@@ -55,7 +64,7 @@ variable "nsg_map" {
     name                = string
     location            = string
     resource_group_name = string
-    nic_key             = string # Using key to reference nic
+    nic_key             = string
     rules = list(object({
       name                       = string
       priority                   = number
@@ -75,7 +84,7 @@ variable "vm_map" {
     name                = string
     location            = string
     resource_group_name = string
-    nic_key             = string # Using key to reference nic
+    nic_key             = string
     vm_size             = string
     admin_username      = string
     admin_password      = string
