@@ -5,13 +5,7 @@ rg_map = {
   }
 }
 
-public_ip_map = {
-  pip1 = {
-    name                = "dev-vm-pip"
-    location            = "Central India"
-    resource_group_name = "dev-rg"
-  }
-}
+public_ip_map = {}
 
 storage_account_map = {
   sa1 = {
@@ -52,6 +46,12 @@ subnet_map = {
     resource_group_name  = "dev-rg"
     virtual_network_name = "dev-vnet"
     address_prefixes     = ["10.20.2.0/24"]
+  },
+  appgw_subnet = {
+    name                 = "AppGatewaySubnet"
+    resource_group_name  = "dev-rg"
+    virtual_network_name = "dev-vnet"
+    address_prefixes     = ["10.20.3.0/24"]
   }
 }
 
@@ -61,7 +61,7 @@ nic_map = {
     location            = "Central India"
     resource_group_name = "dev-rg"
     subnet_key          = "subnet1"
-    public_ip_key       = "pip1"
+    public_ip_key       = null
   }
 }
 
@@ -119,5 +119,19 @@ bastion_map = {
     resource_group_name = "dev-rg"
     subnet_key          = "bastion_subnet"
     public_ip_name      = "dev-bastion-pip"
+  }
+}
+
+app_gateway_map = {
+  appgw1 = {
+    name                 = "dev-appgw"
+    resource_group_name  = "dev-rg"
+    location             = "Central India"
+    sku_name             = "Standard_v2"
+    sku_tier             = "Standard_v2"
+    capacity             = 2
+    subnet_key           = "appgw_subnet"
+    public_ip_name       = "dev-appgw-pip"
+    backend_ip_addresses = ["nic1"]
   }
 }
