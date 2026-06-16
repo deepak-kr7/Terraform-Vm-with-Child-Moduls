@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "azurerm" {
-   resource_resource_group_name = "deep_rg" 
-    storage_account_name = "deepstg074"                              
-    container_name       = "democontainer1"                              
-    key                  = "firstcicd.tfstate"          
+    resource_group_name  = "deep_rg"
+    storage_account_name = "deepstg074"
+    container_name       = "democontainer1"
+    key                  = "firstcicd.tfstate"
   }
 }
 
