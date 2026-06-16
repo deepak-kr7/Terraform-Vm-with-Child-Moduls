@@ -108,16 +108,12 @@ variable "bastion_map" {
   }))
 }
 
-variable "app_gateway_map" {
+variable "lb_map" {
   type = map(object({
-    name                 = string
-    resource_group_name  = string
-    location             = string
-    sku_name             = string
-    sku_tier             = string
-    capacity             = number
-    subnet_key           = string
-    public_ip_name       = string
-    backend_ip_addresses = list(string)
+    name                = string
+    resource_group_name = string
+    location            = string
+    public_ip_name      = string
+    backend_nic_keys    = list(string)
   }))
 }

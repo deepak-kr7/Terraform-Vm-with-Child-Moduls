@@ -122,16 +122,12 @@ bastion_map = {
   }
 }
 
-app_gateway_map = {
-  appgw1 = {
-    name                 = "dev-appgw"
-    resource_group_name  = "dev-rg"
-    location             = "Central India"
-    sku_name             = "Standard_v2"
-    sku_tier             = "Standard_v2"
-    capacity             = 2
-    subnet_key           = "appgw_subnet"
-    public_ip_name       = "dev-appgw-pip"
-    backend_ip_addresses = ["nic1"]
+lb_map = {
+  lb1 = {
+    name                = "dev-lb"
+    resource_group_name = "dev-rg"
+    location            = "Central India"
+    public_ip_name      = "dev-lb-pip"
+    backend_nic_keys    = ["nic1"]
   }
 }

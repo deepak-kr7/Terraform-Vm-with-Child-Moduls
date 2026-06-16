@@ -18,6 +18,6 @@ output "bastion_dns_names" {
   value = [for b in module.bastion.bastion_output : b.dns_name]
 }
 
-output "app_gateway_public_ips" {
-  value = module.app_gateway.appgw_public_ip
+output "lb_ids" {
+  value = [for lb in module.lb.lb_output : lb.id]
 }
