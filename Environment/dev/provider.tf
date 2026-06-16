@@ -5,7 +5,15 @@ terraform {
       version = "~> 4.0"
     }
   }
+  backend "azurerm" {
+   resource_resource_group_name = "deep_rg" 
+    storage_account_name = "deepstg074"                              
+    container_name       = "democontainer1"                              
+    key                  = "firstcicd.tfstate"          
+  }
 }
+
+
 
 provider "azurerm" {
   features {}
