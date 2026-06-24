@@ -150,6 +150,17 @@ nsg_map = {
         destination_port_range     = "80"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
+      },
+      {
+        name                       = "Allow-HTTPS"
+        priority                   = 120
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "443"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
       }
     ]
   }
@@ -180,6 +191,17 @@ nsg_map = {
         destination_port_range     = "80"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
+      },
+      {
+        name                       = "Allow-HTTPS"
+        priority                   = 120
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "443"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
       }
     ]
   }
@@ -208,6 +230,17 @@ nsg_map = {
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      },
+      {
+        name                       = "Allow-HTTPS"
+        priority                   = 120
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "443"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
       }
