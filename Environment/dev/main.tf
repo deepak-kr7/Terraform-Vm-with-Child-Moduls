@@ -100,6 +100,7 @@ module "vnet_peering" {
       vnet2_id   = module.vnet.vnet_output[v.vnet2_key].id
     }
   }
+  depends_on = [module.subnet]
 }
 
 module "bastion" {
