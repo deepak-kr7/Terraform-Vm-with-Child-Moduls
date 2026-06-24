@@ -5,18 +5,22 @@ terraform {
       version = "~> 4.0"
     }
   }
-  backend "azurerm" {
-    resource_group_name  = "deep_rg"
-    storage_account_name = "deepstg074"
-    container_name       = "democontainer1"
-    key                  = "firstcicd.tfstate"
-  }
+  # backend "azurerm" {
+  #   resource_group_name  = "deep_rg"
+  #   storage_account_name = "deepstg074"
+  #   container_name       = "democontainer1"
+  #   key                  = "firstcicd.tfstate"
+  # }
 }
 
 
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
   subscription_id = "5b03e105-f606-436a-ab99-e33ae06a3230"
 }
 resource "random_string" "random1" {

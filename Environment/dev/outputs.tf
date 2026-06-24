@@ -21,3 +21,11 @@ output "bastion_dns_names" {
 output "lb_ids" {
   value = [for lb in module.lb.lb_output : lb.id]
 }
+
+output "lb_public_ips" {
+  value = module.lb.lb_public_ips
+}
+
+output "nat_public_ips" {
+  value = module.nat_gateway.nat_public_ips
+}

@@ -7,5 +7,6 @@ variable "vm" {
     vm_size             = string
     admin_username      = string
     admin_password      = string
+    custom_data         = optional(string)
   }))
 }

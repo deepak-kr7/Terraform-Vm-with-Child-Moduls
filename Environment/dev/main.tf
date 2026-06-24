@@ -83,6 +83,7 @@ module "vm" {
       vm_size             = v.vm_size
       admin_username      = v.admin_username
       admin_password      = v.admin_password
+      custom_data         = v.custom_data
     }
   }
 }
@@ -105,7 +106,7 @@ module "bastion" {
   source = "../../Moduls/azurerm_bastion"
   bastion = {
     for k, v in var.bastion_map : k => {
-      name                = "dev-bastion"
+      name                = v.name
       location            = v.location
       resource_group_name = v.resource_group_name
       subnet_id           = module.subnet.subnet_output[v.subnet_key].id
@@ -126,3 +127,21 @@ module "lb" {
     }
   }
 }
+
+module "nat_gateway" {
+  source = "../../Moduls/azurerm_nat_gateway"
+  nat_gateways = {
+    for k, v in var.nat_gateway_map : k => {
+      name                = v.name
+      location            = v.location
+      resource_group_name = v.resource_group_name
+      public_ip_name      = v.public_ip_name
+      subnet_ids          = [for subnet_key in v.subnet_keys : module.subnet.subnet_output[subnet_key].id]
+    }
+  }
+}
+
+
+
+
+
