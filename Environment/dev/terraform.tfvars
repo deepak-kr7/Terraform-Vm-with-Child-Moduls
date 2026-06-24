@@ -79,8 +79,8 @@ vm_map = {
     resource_group_name = "rg-centralindia"
     nic_key             = "nic1"
     vm_size             = "Standard_D2s_v4"
-    admin_username      = "adminuser"
-    admin_password      = "Password123!"
+    admin_username      = "admin123"
+    admin_password      = "Admin@123456"
     custom_data         = null
   }
   vm2 = {
@@ -89,8 +89,8 @@ vm_map = {
     resource_group_name = "rg-canadacentral"
     nic_key             = "nic2"
     vm_size             = "Standard_D2s_v4"
-    admin_username      = "adminuser"
-    admin_password      = "Password123!"
+    admin_username      = "admin123"
+    admin_password      = "Admin@123456"
     custom_data         = null
   }
   vm3 = {
@@ -99,8 +99,8 @@ vm_map = {
     resource_group_name = "rg-centralindia"
     nic_key             = "nic3"
     vm_size             = "Standard_D2s_v4"
-    admin_username      = "adminuser"
-    admin_password      = "Password123!"
+    admin_username      = "admin123"
+    admin_password      = "Admin@123456"
     custom_data         = null
   }
 }
