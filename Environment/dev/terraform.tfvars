@@ -43,6 +43,12 @@ subnet_map = {
     virtual_network_name = "vnet-centralindia"
     address_prefixes     = ["10.1.3.0/24"]
   }
+  subnet_backend1 = {
+    name                 = "snet-backend-central"
+    resource_group_name  = "rg-centralindia"
+    virtual_network_name = "vnet-centralindia"
+    address_prefixes     = ["10.1.4.0/24"]
+  }
 }
 
 nic_map = {
@@ -50,13 +56,19 @@ nic_map = {
     name                = "nic-vm1"
     location            = "centralindia"
     resource_group_name = "rg-centralindia"
-    subnet_key          = "subnet1"
+    subnet_key          = "subnet_backend1"
   }
   nic2 = {
     name                = "nic-vm2"
     location            = "canadacentral"
     resource_group_name = "rg-canadacentral"
     subnet_key          = "subnet2"
+  }
+  nic3 = {
+    name                = "nic-vm3"
+    location            = "centralindia"
+    resource_group_name = "rg-centralindia"
+    subnet_key          = "subnet_backend1"
   }
 }
 
@@ -67,8 +79,8 @@ vm_map = {
     resource_group_name = "rg-centralindia"
     nic_key             = "nic1"
     vm_size             = "Standard_D2s_v4"
-    admin_username      = "admin123"
-    admin_password      = "Admin@123456"
+    admin_username      = "adminuser"
+    admin_password      = "Password123!"
     custom_data         = null
   }
   vm2 = {
@@ -77,8 +89,18 @@ vm_map = {
     resource_group_name = "rg-canadacentral"
     nic_key             = "nic2"
     vm_size             = "Standard_D2s_v4"
-    admin_username      = "admin123"
-    admin_password      = "Admin@123456"
+    admin_username      = "adminuser"
+    admin_password      = "Password123!"
+    custom_data         = null
+  }
+  vm3 = {
+    name                = "vm-central2"
+    location            = "centralindia"
+    resource_group_name = "rg-centralindia"
+    nic_key             = "nic3"
+    vm_size             = "Standard_D2s_v4"
+    admin_username      = "adminuser"
+    admin_password      = "Password123!"
     custom_data         = null
   }
 }
@@ -161,6 +183,36 @@ nsg_map = {
       }
     ]
   }
+  nsg3 = {
+    name                = "nsg-vm-central2"
+    location            = "centralindia"
+    resource_group_name = "rg-centralindia"
+    nic_key             = "nic3"
+    rules = [
+      {
+        name                       = "Allow-SSH"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      },
+      {
+        name                       = "Allow-HTTP"
+        priority                   = 110
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
+    ]
+  }
 }
 
 lb_map = {
@@ -169,7 +221,7 @@ lb_map = {
     location            = "centralindia"
     resource_group_name = "rg-centralindia"
     public_ip_name      = "pip-lb-central"
-    backend_nic_keys    = ["nic1"]
+    backend_nic_keys    = ["nic1", "nic3"]
   }
   lb2 = {
     name                = "dev-lb-canada"
@@ -186,7 +238,7 @@ nat_gateway_map = {
     location            = "centralindia"
     resource_group_name = "rg-centralindia"
     public_ip_name      = "pip-nat-central"
-    subnet_keys         = ["subnet1"]
+    subnet_keys         = ["subnet1", "subnet_backend1"]
   }
   nat2 = {
     name                = "dev-nat-canada"
