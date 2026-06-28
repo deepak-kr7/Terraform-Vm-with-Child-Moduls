@@ -83,7 +83,7 @@ module "vm" {
       vm_size             = v.vm_size
       admin_username      = v.admin_username
       admin_password      = v.admin_password
-      custom_data         = v.custom_data
+      custom_data         = v.custom_data != null ? base64encode(v.custom_data) : null
     }
   }
 }
@@ -141,6 +141,25 @@ module "nat_gateway" {
     }
   }
 }
+
+module "app_gateway" {
+  source = "../../Moduls/azurerm_application_gateway"
+  app_gateways = {
+    for k, v in var.app_gateway_map : k => {
+      name                = v.name
+      resource_group_name = v.resource_group_name
+      location            = v.location
+      sku_name            = v.sku_name
+      sku_tier            = v.sku_tier
+      capacity            = v.capacity
+      subnet_id           = module.subnet.subnet_output[v.subnet_key].id
+      public_ip_name      = v.public_ip_name
+      backend_nics        = [for nic_key in v.backend_nic_keys : module.nic.nic_output[nic_key].id]
+      host_name           = v.host_name
+    }
+  }
+}
+
 
 
 

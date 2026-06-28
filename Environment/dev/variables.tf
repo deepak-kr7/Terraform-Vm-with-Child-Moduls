@@ -136,6 +136,7 @@ variable "app_gateway_map" {
     subnet_key          = string
     public_ip_name      = string
     backend_nic_keys    = list(string)
+    host_name           = optional(string)
   }))
   default = {}
 }

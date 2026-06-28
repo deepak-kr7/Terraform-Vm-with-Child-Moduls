@@ -29,3 +29,8 @@ output "lb_public_ips" {
 output "nat_public_ips" {
   value = module.nat_gateway.nat_public_ips
 }
+
+output "app_gateway_public_ips" {
+  value = module.app_gateway.app_gateway_public_ips
+}
+

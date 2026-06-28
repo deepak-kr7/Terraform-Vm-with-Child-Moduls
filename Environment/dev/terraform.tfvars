@@ -49,6 +49,12 @@ subnet_map = {
     virtual_network_name = "vnet-centralindia"
     address_prefixes     = ["10.1.4.0/24"]
   }
+  subnet_appgw1 = {
+    name                 = "snet-appgw-central"
+    resource_group_name  = "rg-centralindia"
+    virtual_network_name = "vnet-centralindia"
+    address_prefixes     = ["10.1.5.0/24"]
+  }
 }
 
 nic_map = {
@@ -81,7 +87,14 @@ vm_map = {
     vm_size             = "Standard_D2s_v4"
     admin_username      = "admin123"
     admin_password      = "Admin@123456"
-    custom_data         = null
+    custom_data         = <<EOF
+#!/bin/bash
+apt-get update -y
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx
+echo "<h1>Hello from $(hostname) via b18g2.online!</h1>" > /var/www/html/index.html
+EOF
   }
   vm2 = {
     name                = "vm-canada"
@@ -101,7 +114,14 @@ vm_map = {
     vm_size             = "Standard_D2s_v4"
     admin_username      = "admin123"
     admin_password      = "Admin@123456"
-    custom_data         = null
+    custom_data         = <<EOF
+#!/bin/bash
+apt-get update -y
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx
+echo "<h1>Hello from $(hostname) via b18g2.online!</h1>" > /var/www/html/index.html
+EOF
   }
 }
 
@@ -281,4 +301,20 @@ nat_gateway_map = {
     subnet_keys         = ["subnet2"]
   }
 }
+
+app_gateway_map = {
+  appgw1 = {
+    name                = "dev-appgw-central"
+    resource_group_name = "rg-centralindia"
+    location            = "centralindia"
+    sku_name            = "Standard_v2"
+    sku_tier            = "Standard_v2"
+    capacity            = 2
+    subnet_key          = "subnet_appgw1"
+    public_ip_name      = "pip-appgw-central"
+    backend_nic_keys    = ["nic1", "nic3"]
+    host_name           = "b18g2.online"
+  }
+}
+
 
